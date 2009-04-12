@@ -1,4 +1,5 @@
 #summary Notes on upgrading from 2.X to 3.0
+#labels Featured
 
 = Introduction =
 
