@@ -234,5 +234,6 @@ As you see, just the new change script is applied.
 
 =What next?=
 
+  * Study the example ant and sql scripts - we've tried to provide as much information in those as possible so they should be enough to get you started.
   * See GuidelinesForUsingDbdeploy for more information about using dbdeploy in real environments.  
   * See http://www.dbdeploy.com for more information about the background to dbdeploy
