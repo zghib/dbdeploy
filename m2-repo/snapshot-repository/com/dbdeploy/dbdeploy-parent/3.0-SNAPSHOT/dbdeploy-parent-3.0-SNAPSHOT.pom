@@ -1,0 +1,136 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.dbdeploy</groupId>
+    <artifactId>dbdeploy-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>3.0-SNAPSHOT</version>
+    <name>dbdeploy</name>
+    <url>http://www.dbdeploy.com</url>
+
+    <modules>
+        <module>dbdeploy-core</module>
+        <module>dbdeploy-ant</module>
+        <module>dbdeploy-cli</module>
+        <module>dbdeploy-dist</module>
+    </modules>
+
+    <scm>
+        <!--
+            This github account is used as a staging area for dbdeploy commits.
+            Currently all checkins are mirred to the google code svn repository
+            at http://dbdeploy.googlecode.com/svn/trunk/
+
+            This may change in due course - git makes collaberation so much easier...
+        -->
+        <connection>scm:git:git://github.com/tackley/dbdeploy.git</connection>
+        <developerConnection>scm:git:git@github.com:tackley/dbdeploy.git</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+          <uniqueVersion>false</uniqueVersion>
+          <id>dbdeploy</id>
+          <name>Dbdeploy Repository</name>
+          <url>scm:svn:https://dbdeploy.googlecode.com/svn/m2-repo/repository/</url>
+        </repository>
+        <snapshotRepository>
+          <uniqueVersion>false</uniqueVersion>
+          <id>dbdeploySnapshots</id>
+          <name>Dbdeploy Snapshot Repository</name>
+          <url>scm:svn:https://dbdeploy.googlecode.com/svn/m2-repo/snapshot-repository/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>LGPL</name>
+        </license>
+    </licenses>
+
+    <mailingLists>
+        <mailingList>
+            <name>users</name>
+            <post>db-deploy-users@googlegroups.com</post>
+            <archive>http://groups.google.com/group/db-deploy-users</archive>
+        </mailingList>
+    </mailingLists>
+
+    <properties>
+        <hsqldb.version>1.8.0.7</hsqldb.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <extensions>
+          <extension>
+            <groupId>org.apache.maven.wagon</groupId>
+            <artifactId>wagon-scm</artifactId>
+            <version>1.0-beta-5</version>
+          </extension>
+          <extension>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-manager-plexus</artifactId>
+            <version>1.1</version>
+          </extension>
+          <extension>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-svnexe</artifactId>
+            <version>1.1</version>
+          </extension>
+        </extensions>
+
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+
+</project>
