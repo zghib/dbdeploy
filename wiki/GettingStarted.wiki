@@ -69,7 +69,7 @@ default:
 
 ==Understanding the output==
 
-The example, for simplicity, uses a local file version of [http://hsqldb.org/ hsqldb] that is included in the distribution.  Many other databases are supported by dbdeploy including Oracle, MySql and Microsoft SQL Server.
+The example, for simplicity, uses a local file version of [http://hsqldb.org/ hsqldb] that is included in the distribution.  Many other databases are supported by dbdeploy including Oracle, !MySql and Microsoft SQL Server.
 
 {{{
 drop-and-create-database:
@@ -84,7 +84,7 @@ create-changelog-table:
       [sql] 2 of 2 SQL statements executed successfully
 }}}
 
-dbdeploy uses a table in your database called {{{changelog}} to track which delta scripts have been successfully applied.  This target runs the script provided in the distribution to create this table.  You will need to do this by hand on any database you want to start using dbdeploy.
+dbdeploy uses a table in your database called {{{changelog}}} to track which delta scripts have been successfully applied.  This target runs the script provided in the distribution to create this table.  You will need to do this by hand on any database you want to start using dbdeploy.
 
 {{{
 update-database:
