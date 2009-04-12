@@ -28,17 +28,18 @@
     </scm>
 
     <distributionManagement>
+        <downloadUrl>http://dbdeploy.googlecode.com/svn/m2-repo</downloadUrl>
         <repository>
-          <uniqueVersion>false</uniqueVersion>
-          <id>dbdeploy</id>
-          <name>Dbdeploy Repository</name>
-          <url>scm:svn:https://dbdeploy.googlecode.com/svn/m2-repo/repository/</url>
+            <uniqueVersion>false</uniqueVersion>
+            <id>dbdeploy</id>
+            <name>Dbdeploy Repository</name>
+            <url>file:///var/maven-repo/repository</url>
         </repository>
         <snapshotRepository>
-          <uniqueVersion>false</uniqueVersion>
-          <id>dbdeploySnapshots</id>
-          <name>Dbdeploy Snapshot Repository</name>
-          <url>scm:svn:https://dbdeploy.googlecode.com/svn/m2-repo/snapshot-repository/</url>
+            <uniqueVersion>false</uniqueVersion>
+            <id>dbdeploySnapshots</id>
+            <name>Dbdeploy Snapshot Repository</name>
+            <url>file:///var/maven-repo/snapshot-repository</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -89,26 +90,8 @@
             </plugins>
         </pluginManagement>
 
-        <extensions>
-          <extension>
-            <groupId>org.apache.maven.wagon</groupId>
-            <artifactId>wagon-scm</artifactId>
-            <version>1.0-beta-5</version>
-          </extension>
-          <extension>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-manager-plexus</artifactId>
-            <version>1.1</version>
-          </extension>
-          <extension>
-            <groupId>org.apache.maven.scm</groupId>
-            <artifactId>maven-scm-provider-svnexe</artifactId>
-            <version>1.1</version>
-          </extension>
-        </extensions>
-
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -130,7 +113,7 @@
             <version>1.7</version>
             <scope>test</scope>
         </dependency>
-        
+
     </dependencies>
 
 </project>
