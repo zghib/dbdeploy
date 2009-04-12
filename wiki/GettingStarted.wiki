@@ -109,7 +109,7 @@ This is dbdeploy actually doing its work.  It:
 The bit of ant that made this happen was:
 
 {{{
-    <taskdef name="dbdeploy" classname="net.sf.dbdeploy.AntTarget" classpathref="dbdeploy.classpath"/>
+    <taskdef name="dbdeploy" classname="com.dbdeploy.AntTarget" classpathref="dbdeploy.classpath"/>
 
         <dbdeploy driver="${db.driver}" url="${db.url}"
                   userid="sa"
