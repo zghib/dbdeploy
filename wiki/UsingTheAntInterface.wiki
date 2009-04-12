@@ -1,0 +1,79 @@
+#summary How to invoke dbdeploy from ant
+
+In the supplied distribution is an example ant file, examples/build.xml.  You can probably just [GettingStarted get started using that].
+
+Here a step by step instructions.
+
+== Classpath and taskdef ==
+
+You need to declare the dbdeploy task to ant. The dbdeploy task needs to talk to your database, so the task classpath should also include the database drivers, e.g.
+
+{{{
+    <path id="hsql.classpath">
+        <fileset dir="lib">
+            <include name="hsqldb*.jar"/>
+        </fileset>
+    </path>
+
+   <path id="dbdeploy.classpath">
+        <!-- include the dbdeploy-ant jar -->
+        <fileset dir="lib">
+            <include name="dbdeploy-ant-*.jar"/>
+        </fileset>
+
+        <!-- the dbdeploy task also needs the database driver jar on the classpath -->
+        <path refid="hsql.classpath" />
+
+    </path>
+
+}}}
+
+Then, you can declare the dbdeploy task:
+
+{{{
+    <taskdef name="dbdeploy" classname="com.dbdeploy.AntTarget" classpathref="dbdeploy.classpath"/>
+}}}
+
+==Invoking dbdeploy==
+
+Next include a call to the dbdeploy task in the relevant database target, for example:
+
+{{{
+    <dbdeploy
+        driver="org.hsqldb.jdbcDriver"
+        url="jdbc:hsqldb:hsql://localhost/xdb"
+        userid="sa"
+        password="s3cur1ty"
+        dir="db\deltas"
+        outputfile="build\output\all-deltas.sql"
+        dbms="hsql"
+    />
+}}}
+
+The parameters are as follows:
+
+||Attribute || Description || Required ||
+||driver || Specifies the jdbc driver || Yes ||
+||url ||Specifies the url of the database that the deltas are to be applied to. ||Yes||
+||userid ||The ID of a dbms user who has permissions to select from the schema version table. ||Yes||
+||password ||The password of the dbms user who has permissions to select from the schema version table. ||Yes||
+||dir ||Full or relative path to the directory containing the delta scripts. ||Yes||
+||outputfile ||The name of the script that dbdeploy will output. Include a full or relative path. ||Yes||
+||dbms ||The target dbms. Valid values are: ora -> Oracle, syb-ase -> Sybase ASE, hsql -> Hypersonic SQL, mssql -> MS SQL Server, mysql -> MySQL Database ||Yes||
+||undoOutputfile ||The name of the undo script that dbdeploy will output. Include a full or relative path. ||No||
+||maxNumberToApply ||The highest numbered delta script to apply. ||No||
+||deltaSet ||A tag used to identify a grouping of delta scripts - useful if you need to separate DDL and DML when deploying to replicated environments. If not supplied defaults to "Main"||No||
+
+==Do something with the output file==
+
+Dbdeploy doesn't (yet - see issue 10) execute the generated sql for you.  You need to execute it for yourself, e.g.:
+
+{{{
+
+       <!-- now apply the changescript to the database -->
+        <sql driver="${db.driver}" url="${db.url}"
+             userid="sa" password="s3cur1ty" classpathref="hsql.classpath">
+            <fileset file="build\output\all-deltas.sql"/>
+        </sql>
+
+}}}
