@@ -29,6 +29,8 @@ quickly become a significant overhead - dbdeploy aims to address this.
 
 = Try it =
 
+dbdeploy requires java 1.5 or higher.
+
   # From [http://code.google.com/p/dbdeploy/downloads/list the downloads page] download the distribution zip file.  
   # Unzip this somewhere.
   # Open a command prompt in the example subdirectory of the distribution
