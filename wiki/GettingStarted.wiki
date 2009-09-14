@@ -135,8 +135,8 @@ The generated script looks a bit like this:
 
 CREATE TABLE Test (id INTEGER);
 
-INSERT INTO changelog (change_number, delta_set, complete_dt, applied_by, description)
- VALUES (1, 'Main', CURRENT_TIMESTAMP, USER(), '001_create_table.sql');
+INSERT INTO changelog (change_number, complete_dt, applied_by, description)
+ VALUES (1, CURRENT_TIMESTAMP, USER(), '001_create_table.sql');
 
 COMMIT;
 
@@ -155,8 +155,8 @@ COMMIT;
 INSERT INTO Test VALUES (6);
 INSERT INTO Test VALUES (7);
 
-INSERT INTO changelog (change_number, delta_set, complete_dt, applied_by, description)
- VALUES (2, 'Main', CURRENT_TIMESTAMP, USER(), '002_insert_data.sql');
+INSERT INTO changelog (change_number, complete_dt, applied_by, description)
+ VALUES (2, CURRENT_TIMESTAMP, USER(), '002_insert_data.sql');
 
 COMMIT;
 
