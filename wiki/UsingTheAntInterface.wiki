@@ -62,7 +62,7 @@ The parameters are as follows:
 ||outputfile ||The name of the script that dbdeploy will output. Include a full or relative path. ||Yes||
 ||dbms ||The target dbms. Valid values are: ora -> Oracle, syb-ase -> Sybase ASE, hsql -> Hypersonic SQL, mssql -> MS SQL Server, mysql -> MySQL Database ||Yes||
 ||undoOutputfile ||The name of the undo script that dbdeploy will output. Include a full or relative path. ||No||
-||astChangeToApply ||The highest numbered delta script to apply. ||No||
+||lastChangeToApply ||The highest numbered delta script to apply. ||No||
 ||changeLogTableName ||The name of the changelog table to use.  Useful if you need to separate DDL and DML when deploying to replicated environments. If not supplied defaults to "changelog"||No||
 
 ==Do something with the output file==
