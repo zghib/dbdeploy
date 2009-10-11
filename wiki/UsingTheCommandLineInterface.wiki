@@ -7,7 +7,7 @@ The command line interface is useful when ant is not available. Often, this is h
 = Usage =
 
 {{{
-	java -cp dbdeploy-cli-3.0-SNAPSHOT.jar net.sf.dbdeploy.CommandLineTarget
+java -cp dbdeploy-cli-3.0-SNAPSHOT.jar com.dbdeploy.CommandLineTarget
 }}}
 
 (replace dbdeploy-cli-3.0-SNAPSHOT.jar with the version of the cli jar you are using.)
@@ -30,8 +30,8 @@ usage: dbdeploy
 You need to supply all values that don't have a default. In addition, you'll need to add the database driver you are using to the java class path. Here's an example:
 
 {{{
-java -cp mysql-connector-java-5.1.7-bin.jar:dbdeploy-cli-3.0-SNAPSHOT-jar-with-dependencies.jar \
-   net.sf.dbdeploy.CommandLineTarget \
+java -cp mysql-connector-java-5.1.7-bin.jar:dbdeploy-cli-3.0-SNAPSHOT.jar \
+   com.dbdeploy.CommandLineTarget \
    -U dbdeploy \
    -P dbdeploy \
    -D com.mysql.jdbc.Driver \
