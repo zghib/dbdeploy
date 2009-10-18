@@ -122,7 +122,7 @@ The bit of ant that made this happen was:
 
 Take a look at the source scripts to see what was included in the scripts.
 
-In versions of dbdeploy prior to 3.0M2, you had to write out a generated script file to a file and then execute that with the database vendor's tool or by using ant's sql task.  You don't need to do this any more, though if you need to do this see GeneratingAndCustomisingScripts.  
+In versions of dbdeploy prior to 3.0M2, you had to write out a generated script file to a file and then execute that with the database vendor's tool or by using ant's sql task.  You don't need to do this any more, though if you need to do this see GeneratingAndCustomisingScripts.  By default dbdeploy will split your files on ";" to work out which separate jdbc statements to execute; you can use the delimiter and delimitertype parameters to change this - they work just like they do for the [http://ant.apache.org/manual/CoreTasks/sql.html ant sql task].
 
 (For those who used earlier versions, if you specify an output file, dbdeploy will apply the changes for you directly.  Note that when dbdeploy applies changes, it uses standard sql and jdbc so you do not need to specify a database syntax.)
 
