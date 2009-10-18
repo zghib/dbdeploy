@@ -46,8 +46,6 @@ Next include a call to the dbdeploy task in the relevant database target, for ex
         userid="sa"
         password="s3cur1ty"
         dir="db\deltas"
-        outputfile="build\output\all-deltas.sql"
-        dbms="hsql"
     />
 }}}
 
@@ -59,22 +57,8 @@ The parameters are as follows:
 ||userid ||The ID of a dbms user who has permissions to select from the schema version table. ||Yes||
 ||password ||The password of the dbms user who has permissions to select from the schema version table. ||Yes||
 ||dir ||Full or relative path to the directory containing the delta scripts. ||Yes||
-||outputfile ||The name of the script that dbdeploy will output. Include a full or relative path. ||Yes||
-||dbms ||The target dbms. Valid values are: ora -> Oracle, syb-ase -> Sybase ASE, hsql -> Hypersonic SQL, mssql -> MS SQL Server, mysql -> MySQL Database, db2 -> DB2, pgsql -> Postgres ||Yes||
+||outputfile ||The name of the script that dbdeploy will output. Include a full or relative path.  You only need to use this if you use dbdeploy in script mode - see GeneratingAndCustomisingScripts||No||
+||dbms ||The target dbms. You only need to use this if you use dbdeploy in script mode - see GeneratingAndCustomisingScripts ||No||
 ||undoOutputfile ||The name of the undo script that dbdeploy will output. Include a full or relative path. ||No||
 ||lastChangeToApply ||The highest numbered delta script to apply. ||No||
 ||changeLogTableName ||The name of the changelog table to use.  Useful if you need to separate DDL and DML when deploying to replicated environments. If not supplied defaults to "changelog"||No||
-
-==Do something with the output file==
-
-Dbdeploy doesn't (yet - see issue 10) execute the generated sql for you.  You need to execute it for yourself, e.g.:
-
-{{{
-
-       <!-- now apply the changescript to the database -->
-        <sql driver="${db.driver}" url="${db.url}"
-             userid="sa" password="s3cur1ty" classpathref="hsql.classpath">
-            <fileset file="build\output\all-deltas.sql"/>
-        </sql>
-
-}}}
