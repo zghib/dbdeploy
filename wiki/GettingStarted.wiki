@@ -51,17 +51,16 @@ create-changelog-table:
 clean:
 
 update-database:
- [dbdeploy] dbdeploy 3.0-SNAPSHOT
- [dbdeploy] Reading change scripts from directory /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example...
+ [dbdeploy] dbdeploy 3.0M2
+ [dbdeploy] Reading change scripts from directory /tmp/dbdeploy-3.0M2/example...
  [dbdeploy] Changes currently applied to database:
  [dbdeploy]   (none)
  [dbdeploy] Scripts available:
  [dbdeploy]   1, 2
  [dbdeploy] To be applied:
  [dbdeploy]   1, 2
- [dbdeploy] Generating undo scripts...
-      [sql] Executing resource: /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example/output.sql
-      [sql] 7 of 7 SQL statements executed successfully
+ [dbdeploy] Applying #1: 001_create_table.sql...
+ [dbdeploy] Applying #2: 002_insert_data.sql...
 
 default:
 
@@ -71,7 +70,7 @@ default:
 
 ==Understanding the output==
 
-The example, for simplicity, uses a local file version of [http://hsqldb.org/ hsqldb] that is included in the distribution.  Many other databases are supported by dbdeploy including Oracle, !MySql and Microsoft SQL Server.
+The example, for simplicity, uses a local file version of [http://hsqldb.org/ hsqldb] that is included in the distribution.  Many other databases are supported by dbdeploy including Oracle, !MySql and Microsoft SQL Server. 
 
 {{{
 drop-and-create-database:
@@ -98,7 +97,8 @@ update-database:
  [dbdeploy]   1, 2
  [dbdeploy] To be applied:
  [dbdeploy]   1, 2
- [dbdeploy] Generating undo scripts...
+ [dbdeploy] Applying #1: 001_create_table.sql...
+ [dbdeploy] Applying #2: 002_insert_data.sql...
 }}}
 
 This is dbdeploy actually doing its work.  It:
@@ -106,7 +106,7 @@ This is dbdeploy actually doing its work.  It:
   * Read the entries from the changelog table to which scripts had currently been applied: `Changes currently applied to database: (none)`
   * Scanned the script directory for sql scripts, found the two provided  (`001_create_table.sql` and `002_insert_data.sql`), and parsed the file names to discover their numbers: `Scripts available: 1, 2`
   * Worked out what needed applying: `To be applied: 1, 2`
-  * Generated `output.sql` with a script that applies those change numbers
+  * Applied those changes to the database
 
 The bit of ant that made this happen was:
 
@@ -117,61 +117,15 @@ The bit of ant that made this happen was:
                   userid="sa"
                   password=""
                   dir="."
-                  outputfile="output.sql"
-                  undoOutputfile="undo.sql"
-                  dbms="hsql"
                 />
 }}}
 
-The generated script looks a bit like this:
+Take a look at the source scripts to see what was included in the scripts.
 
-{{{
+In versions of dbdeploy prior to 3.0M2, you had to write out a generated script file to a file and then execute that with the database vendor's tool or by using ant's sql task.  You don't need to do this any more, though if you need to do this see GeneratingAndCustomisingScripts.  
 
------ START CHANGE SCRIPT #1: 001_create_table.sql -----
+(For those who used earlier versions, if you specify an output file, dbdeploy will apply the changes for you directly.  Note that when dbdeploy applies changes, it uses standard sql and jdbc so you do not need to specify a database syntax.)
 
--- Most databases dont apply DDL statements transactionally.
--- Therefore, to recover from failure more easily, only put a single DDL
--- statement in each change script.
-
-CREATE TABLE Test (id INTEGER);
-
-INSERT INTO changelog (change_number, complete_dt, applied_by, description)
- VALUES (1, CURRENT_TIMESTAMP, USER(), '001_create_table.sql');
-
-COMMIT;
-
------ END CHANGE SCRIPT #1: 001_create_table.sql -----
-
-
------ START CHANGE SCRIPT #2: 002_insert_data.sql -----
-
--- dbdeploy will wrap the application of each change script
--- in a transaction
---
--- DML statements (INSERT, UPDATE etc) can be applied transactionally,
--- so therefore dbdeploy will ensure that either the whole of this script applies
--- or none of it does.
---
-INSERT INTO Test VALUES (6);
-INSERT INTO Test VALUES (7);
-
-INSERT INTO changelog (change_number, complete_dt, applied_by, description)
- VALUES (2, CURRENT_TIMESTAMP, USER(), '002_insert_data.sql');
-
-COMMIT;
-
------ END CHANGE SCRIPT #2: 002_insert_data.sql -----
-}}}
-
-Take a look at the source scripts to see what dbdeploy generated and what was included in the scripts.
-
-
-{{{
-      [sql] Executing resource: /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example/output.sql
-      [sql] 7 of 7 SQL statements executed successfully
-}}}
-
-Finally, we use the built-in ant sql task to execute the generated script.  dbdeploy doesn't actually run the generated scripts for you (currently - see issue 10), you must do this either using ant's sql task or tools provided by your database.
 
 ==Run dbdeploy again==
 
@@ -182,17 +136,14 @@ $ ant update-database
 Buildfile: build.xml
 
 update-database:
- [dbdeploy] dbdeploy 3.0-SNAPSHOT
- [dbdeploy] Reading change scripts from directory /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example...
+ [dbdeploy] dbdeploy 3.0M2
+ [dbdeploy] Reading change scripts from directory /tmp/dbdeploy-3.0M2/example...
  [dbdeploy] Changes currently applied to database:
  [dbdeploy]   1, 2
  [dbdeploy] Scripts available:
  [dbdeploy]   1, 2
  [dbdeploy] To be applied:
  [dbdeploy]   (none)
- [dbdeploy] Generating undo scripts...
-      [sql] Executing resource: /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example/output.sql
-      [sql] 0 of 0 SQL statements executed successfully
 
 BUILD SUCCESSFUL
 Total time: 2 seconds
@@ -218,14 +169,12 @@ update-database:
  [dbdeploy] dbdeploy 3.0-SNAPSHOT
  [dbdeploy] Reading change scripts from directory /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example...
  [dbdeploy] Changes currently applied to database:
- [dbdeploy]   1, 2
+ [dbdeploy]   1, 2 
  [dbdeploy] Scripts available:
  [dbdeploy]   1..3
  [dbdeploy] To be applied:
  [dbdeploy]   3
- [dbdeploy] Generating undo scripts...
-      [sql] Executing resource: /tmp/dbdeploy/dbdeploy-3.0-SNAPSHOT/example/output.sql
-      [sql] 3 of 3 SQL statements executed successfully
+ [dbdeploy] Applying #3: 003_more_data.sql...
 
 BUILD SUCCESSFUL
 Total time: 1 second
