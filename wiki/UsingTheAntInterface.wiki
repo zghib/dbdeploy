@@ -57,8 +57,12 @@ The parameters are as follows:
 ||userid ||The ID of a dbms user who has permissions to select from the schema version table. ||Yes||
 ||password ||The password of the dbms user who has permissions to select from the schema version table. ||Yes||
 ||dir ||Full or relative path to the directory containing the delta scripts. ||Yes||
+||delimiter||Delimiter to use to separate scripts into statements, if dbdeploy will apply the scripts for you i.e. you haven't specified outputfile. Default `;`||No||
+||delimitertype||either `normal`: split on delimiter wherever it occurs or `row` only split on delimiter if it features on a line by itself. Default `normal`.||No||
 ||outputfile ||The name of the script that dbdeploy will output. Include a full or relative path.  You only need to use this if you use dbdeploy in script mode - see GeneratingAndCustomisingScripts||No||
 ||dbms ||The target dbms. You only need to use this if you use dbdeploy in script mode - see GeneratingAndCustomisingScripts ||No||
 ||undoOutputfile ||The name of the undo script that dbdeploy will output. Include a full or relative path. ||No||
 ||lastChangeToApply ||The highest numbered delta script to apply. ||No||
 ||changeLogTableName ||The name of the changelog table to use.  Useful if you need to separate DDL and DML when deploying to replicated environments. If not supplied defaults to "changelog"||No||
+
+Note that delimiter and delimitertype are intentionally the same as the same parameters provided by the [http://ant.apache.org/manual/CoreTasks/sql.html ant sql task].
