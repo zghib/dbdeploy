@@ -16,18 +16,26 @@ This will display a usage statment:
 
 {{{
 usage: dbdeploy
- -D,--driver <arg>            database driver class
- -d,--dbms <arg>              dbms type
-    --deltaset <arg>          delta set name (default: Main)
- -o,--outputfile <arg>        output file
- -P,--password <arg>          database password
- -s,--scriptdirectory <arg>   directory containing change scripts
-                              (default: .)
- -U,--userid <arg>            database user id
- -u,--url <arg>               database url
+ -D,--driver <arg>               database driver class
+ -d,--dbms <arg>                 dbms type
+    --delimiter <arg>            delimiter to separate sql statements
+    --delimitertype <arg>        delimiter type to separate sql statements
+                                 (row or normal)
+ -o,--outputfile <arg>           output file
+ -P,--password <arg>             database password (use -P without a
+                                 argument value to be prompted)
+ -s,--scriptdirectory <arg>      directory containing change scripts
+                                 (default: .)
+ -t,--changeLogTableName <arg>   name of change log table to use (default:
+                                 changelog)
+    --templatedir <arg>          template directory
+ -U,--userid <arg>               database user id
+ -u,--url <arg>                  database url
+
 }}}
 
-You need to supply all values that don't have a default. In addition, you'll need to add the database driver you are using to the java class path. Here's an example:
+The parameters match up with those on the ant interface, see UsingTheAntInterface for more information.
+Here's an example:
 
 {{{
 java -cp mysql-connector-java-5.1.7-bin.jar:dbdeploy-cli-3.0-SNAPSHOT.jar \
@@ -52,6 +60,6 @@ To be applied:
   1, 2
 }}}
 
-Note: dbdeploy only ever reads from the database, it never writes. You need to use your database's tool to execute the resulting script.
+See also the examples/cli-example.sh file for an example shell script. Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database.
 
  
