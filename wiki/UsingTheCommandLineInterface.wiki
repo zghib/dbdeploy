@@ -10,7 +10,7 @@ The command line interface is useful when ant is not available. Often, this is h
 java -cp dbdeploy-cli-3.0-SNAPSHOT.jar com.dbdeploy.CommandLineTarget
 }}}
 
-(replace dbdeploy-cli-3.0-SNAPSHOT.jar with the version of the cli jar you are using.)
+(replace dbdeploy-cli-3.0-SNAPSHOT.jar with the version of the cli jar you are using. Note that the jar does not support `java -jar` syntax as to actually use it you need to specify a classpath including your database driver.)
 
 This will display a usage statment:
 
@@ -21,6 +21,10 @@ usage: dbdeploy
     --delimiter <arg>            delimiter to separate sql statements
     --delimitertype <arg>        delimiter type to separate sql statements
                                  (row or normal)
+ -e,--encoding <arg>             encoding for input and output files
+                                 (default: UTF-8)
+    --lineending <arg>           line ending to use when applying scripts
+                                 direct to db (platform, cr, crlf, lf)
  -o,--outputfile <arg>           output file
  -P,--password <arg>             database password (use -P without a
                                  argument value to be prompted)
@@ -31,7 +35,6 @@ usage: dbdeploy
     --templatedir <arg>          template directory
  -U,--userid <arg>               database user id
  -u,--url <arg>                  database url
-
 }}}
 
 The parameters match up with those on the ant interface, see UsingTheAntInterface for more information.
@@ -60,6 +63,13 @@ To be applied:
   1, 2
 }}}
 
-See also the examples/cli-example.sh file for an example shell script. Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database.
+See also the examples/cli-example.sh file for an example shell script. 
+
+Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database. Currently (3.0M3), the command line interface differs from the ant interface in the following ways:
+
+  * the ant `dir` parameter is called `scriptdirectory`
+  * `lastChangeToApply` and `undoOutputFile` are not supported.
+
+Issue 29 when implemented will address these differences.
 
  
