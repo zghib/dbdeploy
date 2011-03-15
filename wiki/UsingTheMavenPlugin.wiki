@@ -67,5 +67,12 @@ So, you can use `mvn dbdepoy:update` in a directory with a configured pom to app
 You can use `mvn help:describe -Dplugin=com.dbdeploy:maven-dbdeploy-plugin -Ddetail` to get full plugin documentation.
 
 
+===Special note for the 3.0M3 release===
+
+Unfortunately the pom.xml in the examples directory of the distribution is incorrect, see issue 56 for details.
+
+Specifically, you need to replace the version of 3.0-SNAPSHOT with 3.0M3  for it to work. Apologies.
+
+
 
  
