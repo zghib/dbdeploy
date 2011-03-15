@@ -37,7 +37,13 @@ usage: dbdeploy
  -u,--url <arg>                  database url
 }}}
 
-The parameters match up with those on the ant interface, see UsingTheAntInterface for more information.
+The parameters match up with those on the ant interface, see UsingTheAntInterface for more information. Currently (3.0M3), the command line interface differs from the ant interface in the following ways:
+
+  * the ant `dir` parameter is called `scriptdirectory` in the command line interface
+  * `lastChangeToApply` and `undoOutputFile` are not supported.
+
+Issue 29 when implemented will address these differences.
+
 Here's an example:
 
 {{{
@@ -65,11 +71,6 @@ To be applied:
 
 See also the examples/cli-example.sh file for an example shell script. 
 
-Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database. Currently (3.0M3), the command line interface differs from the ant interface in the following ways:
-
-  * the ant `dir` parameter is called `scriptdirectory`
-  * `lastChangeToApply` and `undoOutputFile` are not supported.
-
-Issue 29 when implemented will address these differences.
+Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database. 
 
  
