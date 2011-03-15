@@ -4,6 +4,8 @@
 
 The command line interface is useful when ant is not available. Often, this is how dbdeploy is used when deploying to production databases.
 
+As well as this command line interface, dbdeploy supports an [UsingTheAntInterface ant task] and a [UsingTheMavenPlugin maven plugin].
+
 = Usage =
 
 {{{
