@@ -12,7 +12,7 @@ As well as this command line interface, dbdeploy supports an [UsingTheAntInterfa
 java -cp dbdeploy-cli-3.0-SNAPSHOT.jar com.dbdeploy.CommandLineTarget
 }}}
 
-(replace dbdeploy-cli-3.0-SNAPSHOT.jar with the version of the cli jar you are using. Note that the jar does not support `java -jar` syntax as to actually use it you need to specify a classpath including your database driver.)
+(replace dbdeploy-cli-3.0-SNAPSHOT.jar with the version of the cli jar you are using. Note that the jar does not support `java -jar` syntax as to use it you need to specify a classpath including your database driver.)
 
 This will display a usage statment:
 
@@ -75,4 +75,18 @@ See also the examples/cli-example.sh file for an example shell script.
 
 Just like the ant interface, if you don't specify an output file it will run the scripts directly against the database. 
 
- 
+===Specifying the database password===
+
+Including the database password on the command line can mean it is available to any user via `ps`. To avoid this, include `-P` or `--password` on the command line, you will then be prompted for the password from stdin. In scripts you probably want to pipe the password to dbdeploy:
+
+{{{
+echo password | java -cp mysql-connector-java-5.1.7-bin.jar:dbdeploy-cli-3.0-SNAPSHOT.jar \
+   com.dbdeploy.CommandLineTarget \
+   -U dbdeploy \
+   -P \
+   -D com.mysql.jdbc.Driver \
+   -u jdbc:mysql://localhost/dbdeploy \
+   -d mysql \
+   -o consolidated_script.sql \
+   -s dbdeploy-core/example_scripts/
+}}}
