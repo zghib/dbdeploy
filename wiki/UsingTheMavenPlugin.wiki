@@ -8,7 +8,7 @@ As well as this maven plugin, dbdeploy supports an [UsingTheAntInterface ant tas
 
 = Usage =
 
-The maven plugin was introduced in version 3.0M3. It is published to maven central. (NB: at time of writing this is still awaiting approval, should happen in the next few days.)
+The maven plugin was introduced in version 3.0M3. It is published to maven central. 
 
 Example pom.xml:
 
