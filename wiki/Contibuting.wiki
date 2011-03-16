@@ -1,0 +1,17 @@
+#summary How to help make dbdeploy better
+#labels Featured
+
+= Introduction =
+
+As an open source project, dbdeploy relies heavily on user contributions to improve and grow.
+
+Your contributions, feedback and experiences are welcome.
+
+You can:
+
+  * discuss and help other users on the [http://groups.google.com/group/db-deploy-users mailing list]
+  * create issues and comment on existing issues in the [http://code.google.com/p/dbdeploy/issues/list issue tracker]
+  * get the source code from http://github.com/tackley/dbdeploy, fork it, make changes, and send a pull request (preferred)
+  * submit a patch to an issue on the issue tracker
+
+Thanks!
